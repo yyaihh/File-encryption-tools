@@ -32,12 +32,12 @@ DataType RSA::getEkey(DataType orla){
     DataType ekey;
     do{
         ekey = rand() % orla;
-    }while(ekey == 1 || getGcd(ekey, orla) == 1);
+    }while(ekey < 2 || getGcd(ekey, orla) != 1);
     return ekey;
 }
 DataType RSA::getDkey(DataType ekey, DataType orla){
-    DataType dkey = orla - 1;
-    for(;(dkey*ekey%orla) != 1; --dkey);
+    DataType dkey = orla / ekey;
+    for(;(dkey*ekey%orla) != 1; ++dkey);
     return dkey;
 }
 DataType RSA::getGcd(DataType num1, DataType num2){
