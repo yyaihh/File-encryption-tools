@@ -50,12 +50,13 @@ string BigNum::add(string num1, string num2){
         res += '-';
     }
     reverse(res.begin(), res.end());
+    if (res.empty()) res.push_back('0');
     return res;
 }
 string BigNum::sub(string num1, string num2){
     string res;
     if(num1[0] == '-'){
-        if(num2[0]!='-'){//负 - 负  == 负 + 正 
+        if(num2[0]=='-'){//负 - 负  == 负 + 正 
             return add(string(num1.begin(),num1.end()), string(num2.begin() + 1, num2.end()));
         }
         else{//负 - 正
@@ -109,6 +110,7 @@ string BigNum::sub(string num1, string num2){
     for(;n<(int)num1.size();++n){
         res.push_back(num1[n]);
     }
+    if (res.empty()) res.push_back('0');
     return res;
 }
 string BigNum::mul(string num1, string num2){
@@ -147,5 +149,6 @@ string BigNum::mul(string num1, string num2){
     for(; n < tmplen; ++n){
         res.push_back(tmp[n]);
     }
+    if (res.empty()) res.push_back('0');
     return res;
 }
