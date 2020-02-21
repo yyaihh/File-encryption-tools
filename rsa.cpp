@@ -1,13 +1,13 @@
 #include<iostream>
 #include<cmath>
-//#include<ctime>
+#include<ctime>
 #include<cstdlib>
 #include"rsa.h"
 DataType RSA::getPrime(){
     DataType res;
     srand(time(0));
     do{
-        res = rand() % 200 + 2;
+        res = rand() % 200 + 2;//
     }while(!isPrime(res));
     return res;
 }
@@ -48,7 +48,7 @@ DataType RSA::getGcd(DataType num1, DataType num2){
     }
     return num2;
 }
-DataType RSA::encrypt(DataType data, DataType ekey, DataType nkey){
+DataType RSA::_encrypt(DataType data, DataType ekey, DataType nkey){
     DataType Ai = data;
     //data^ekey % nkey
     //只和ekey的位数有关
@@ -61,8 +61,8 @@ DataType RSA::encrypt(DataType data, DataType ekey, DataType nkey){
     }
     return res;
 }
-DataType RSA::decrypt(DataType data, DataType dkey, DataType nkey){
-    return encrypt(data, dkey, nkey);
+DataType RSA::_decrypt(DataType data, DataType dkey, DataType nkey){
+    return _encrypt(data, dkey, nkey);
 }
 void RSA::getKeys(){
     DataType prime1, prime2 = getPrime();
@@ -76,4 +76,7 @@ void RSA::getKeys(){
 }
 Key RSA::getKey(){
     return m_key;
+}
+void RSA::encrypt(const char* filename, const char* outname){
+
 }
