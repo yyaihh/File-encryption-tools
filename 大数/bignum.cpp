@@ -9,8 +9,8 @@ string BigNum::add(string num1, string num2){
     int pos1 = len1 - 1, pos2 = len2 - 1;
     bool flag = false;
     if(num1[0] == '-'){
-        left1 = 1;
         if(num2[0] == '-'){
+            left1 = 1;
             left2 = 1;
             flag = true;
         }
@@ -113,7 +113,7 @@ string BigNum::sub(string num1, string num2){
     if (res.empty()) res.push_back('0');
     return res;
 }
-string BigNum::mul(string num1, string num2){
+string BigNum::mul(string& num1, string& num2){
     int right1 = num1.size() - 1, right2 = num2.size() - 1;
     int tmplen = right1 + right2 + 3;
     string tmp(tmplen, '0'), res;
@@ -151,4 +151,66 @@ string BigNum::mul(string num1, string num2){
     }
     if (res.empty()) res.push_back('0');
     return res;
+}
+pair<string, string> BigNum::dev(string num1, string num2){
+    bool flag = false;
+    if(num1[0] == '-'){
+        num1.erase(0);
+        flag = !flag;
+    }
+    else if(num1[0] == '+'){
+        num1.erase(0);
+    }
+    if(num2[0] == '-'){
+        num1.erase(0);
+        flag = !flag;
+    }
+    else if(num2[0] == '+'){
+        num1.erase(0);
+    }
+    string res = "0", rem = "0";//商与余数
+    int size1 = num1.size(), size2 = num2.size();
+    int64_t n = size1 - size2;
+    if(n > 0){
+        num2.append(n, '0');
+        if(num1 < num2){
+            --n;
+            num2.resize(size2 + n);
+        }
+    }
+    rem = num1;
+    char count;
+    while(n--){
+        count = '0';
+        while(IsLess(rem, num2)){//余数比num2小时计算结束
+            rem = sub(rem, num2);
+            ++count;
+        }
+        if(!res.empty() || count != '0'){
+            res.push_back(count);
+        }
+        num2.pop_back();
+    }
+    return pair<string, string>(res, rem);
+}
+bool BigNum::IsLess(const string& num1, const string& num2){
+    if(num1.size() == num1.size()){
+        return num1 < num2;
+    }
+    return num1.size() < num1.size();
+}
+string BigNum::operator+(BigNum& n){
+    return add(m_num, n.m_num);
+}
+string BigNum::operator-(BigNum& n){
+    return sub(m_num, n.m_num);
+}
+string BigNum::operator*(BigNum& n){
+    return mul(m_num, n.m_num);
+}
+string BigNum::operator/(BigNum& n){
+    return dev(m_num, n.m_num).first;
+}
+string BigNum::operator%(BigNum& n){
+    return dev(m_num, n.m_num).second;
 }
