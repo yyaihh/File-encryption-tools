@@ -153,22 +153,24 @@ string BigNum::mul(string& num1, string& num2){
     return res;
 }
 pair<string, string> BigNum::dev(string num1, string num2){
-    bool flag = false;
+    bool flag1 = false;
+    bool flag2 = false;
     if(num1[0] == '-'){
-        num1.erase(0);
-        flag = !flag;
+        num1.erase(0, 1);
+        flag1 = !flag1;
+        flag2 = true;
     }
     else if(num1[0] == '+'){
-        num1.erase(0);
+        num1.erase(0, 1);
     }
     if(num2[0] == '-'){
-        num1.erase(0);
-        flag = !flag;
+        num2.erase(0, 1);
+        flag1 = !flag1;
     }
     else if(num2[0] == '+'){
-        num1.erase(0);
+        num2.erase(0, 1);
     }
-    string res = "0", rem = "0";//商与余数
+    string res, rem;//商与余数
     int size1 = num1.size(), size2 = num2.size();
     int64_t n = size1 - size2;
     if(n > 0){
@@ -180,9 +182,9 @@ pair<string, string> BigNum::dev(string num1, string num2){
     }
     rem = num1;
     char count;
-    while(n--){
+    while(n-- >= 0){
         count = '0';
-        while(IsLess(rem, num2)){//余数比num2小时计算结束
+        while(IsLess(num2, rem)){//余数比num2小时计算结束
             rem = sub(rem, num2);
             ++count;
         }
@@ -191,13 +193,22 @@ pair<string, string> BigNum::dev(string num1, string num2){
         }
         num2.pop_back();
     }
+    if (res.empty()) {
+        res.push_back('0');
+    }
+    if (flag1 && res != "0") {
+        res.insert(res.begin(), '-');        
+    }
+    if (flag2 && rem != "0") {
+        rem.insert(rem.begin(), '-');           
+    }
     return pair<string, string>(res, rem);
 }
 bool BigNum::IsLess(const string& num1, const string& num2){
-    if(num1.size() == num1.size()){
-        return num1 < num2;
+    if(num1.size() == num2.size()){
+        return num1 <= num2;
     }
-    return num1.size() < num1.size();
+    return num1.size() <= num2.size();
 }
 string BigNum::operator+(BigNum& n){
     return add(m_num, n.m_num);
