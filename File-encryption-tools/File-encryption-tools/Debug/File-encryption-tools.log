@@ -1,0 +1,7 @@
+﻿  main.cpp
+c:\file-encryption-tools\file-encryption-tools\rsa.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\file-encryption-tools\file-encryption-tools\rsa.hpp(34): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+c:\file-encryption-tools\file-encryption-tools\rsa.hpp(42): warning C4244: “初始化”: 从“double”转换到“int”，可能丢失数据
+c:\file-encryption-tools\file-encryption-tools\rsa.hpp(57): warning C4244: “参数”: 从“time_t”转换到“unsigned int”，可能丢失数据
+c:\file-encryption-tools\file-encryption-tools\main.cpp(7): warning C4101: “data1”: 未引用的局部变量
+  File-encryption-tools.vcxproj -> C:\File-encryption-tools\File-encryption-tools\Debug\File-encryption-tools.exe
