@@ -1,5 +1,5 @@
 #include<iostream>
-#include"rsa.h"
+#include"rsa.hpp"
 using namespace std;
 int main(){
     RSA rsa;
